@@ -8,6 +8,17 @@ import './compteOrga.css';
 import HeartIcon from '@/app/icons/hear';
 import ShopIcon from '@/app/icons/shop';
 
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  type: string;
+  location: string;
+  promotion: string;
+  image?: string;
+}
+
 export default function CompteOrga() {
   const [showFormulaire, setShowFormulaire] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
@@ -16,8 +27,8 @@ export default function CompteOrga() {
   const [eventType, setEventType] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventPromotion, setEventPromotion] = useState('');
-  const [eventImage, setEventImage] = useState(null);
-  const [events, setEvents] = useState([]);
+  const [eventImage, setEventImage] = useState<File | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -48,24 +59,23 @@ export default function CompteOrga() {
     setError('');
   }, []);
 
-  const handleImageChange = (e) => {
-    setEventImage(e.target.files[0]);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setEventImage(e.target.files[0]);
+    }
   };
 
-  const handleDeleteEvent = async (eventId) => {
+  const handleDeleteEvent = async (eventId: number) => {
     try {
       const response = await axios.delete(`http://localhost:3000/api/events/${eventId}`);
-      setEvents(events.filter((event) => event.id !== eventId));  // Remove event from state
+      setEvents(events.filter((event) => event.id !== eventId)); // Remove event from state
     } catch (error) {
       console.error('Failed to delete event:', error.response ? error.response.data : error.message);
       setError('Failed to delete event.');
     }
   };
-  
-  
-  
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!eventTitle || !eventDate || !eventTime || !eventType || !eventLocation) {
@@ -81,7 +91,7 @@ export default function CompteOrga() {
     }
 
     const [hour, minute] = timeParts;
-    if (isNaN(hour) || isNaN(minute)) {
+    if (isNaN(Number(hour)) || isNaN(Number(minute))) {
       setError('Invalid time format.');
       return;
     }
@@ -125,8 +135,7 @@ export default function CompteOrga() {
       console.error('Failed to create event:', error.response ? error.response.data : error.message);
       setError('Failed to create event.');
     }
-};
-
+  };
 
   return (
     <div className='contenue'>
@@ -196,18 +205,12 @@ export default function CompteOrga() {
               />
             </div>
             <div className="EventPromotion">
-            <textarea
+              <textarea
                 placeholder="Phrase pour inciter les gens à acheter (optionnel)"
                 value={eventPromotion}
                 onChange={(e) => setEventPromotion(e.target.value)}
                 className="InputPromotion"
               />
-              <div className="DisplayPromotion">
-                {/* Transform the text to include line breaks */}
-                {eventPromotion.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-            </div>
             </div>
             <div className="ImageUpload">
               <FontAwesomeIcon icon={faImage} />
@@ -224,50 +227,29 @@ export default function CompteOrga() {
           </form>
         )}
 
-          {Array.isArray(events) ? (
-            [...events].reverse().map((event, index) => {
-              const eventDate = new Date(event.date);
-              const eventTime = new Date(`${event.date}T${event.time}`);
-              const formattedTime = isNaN(eventTime.getTime()) ? 'Invalid Time' : eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-              return (
-                <div key={index} className="event">
-                  <div className="infoOrga">
-                    <img className="profileImage" src="./user.jpg" alt="Profile" />
-                    <p className="UserOrganisateur">KexEvent</p>
-                  </div>
-                  <button className="deleteButton" onClick={() => handleDeleteEvent(event.id)}>
-                    X
-                  </button>
-                  <h3 className="titreEvenement">{event.title}</h3>
-                  <p className="DateEvenement">Date: {eventDate.toLocaleDateString()}</p>
-                  <p className="HeureEvenement">Heure: {formattedTime}</p>
-                  <p className="TypeEvenement">Type: {event.type}</p>
-                  <p className="LieuEvenement">Lieu: {event.location || 'Non spécifié'}</p>
-                  <p className="PromotionEvenement">
-                    {event.promotion.split('\n').map((line, idx) => (
-                      <span key={idx}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
-                  </p>
-                  <div className="DivImage">
-                    {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
-                  </div>
-                  <div className="reactions">
-                    <HeartIcon className="heartIcon" />
-                    <ShopIcon className="shoppingIcon" />
-                  </div>
-                  
+        {events.length > 0 ? (
+          events.map((event, index) => {
+            const eventDate = new Date(event.date);
+            const eventTime = new Date(`${event.date}T${event.time}`);
+            const formattedTime = isNaN(eventTime.getTime()) ? 'Invalid Time' : eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            return (
+              <div className="event" key={index}>
+                <h2>{event.title}</h2>
+                <p>{event.location}</p>
+                <p>{eventType}</p>
+                <p>{eventDate.toLocaleDateString()} at {formattedTime}</p>
+                {event.image && <img src={event.image} alt="Event" />}
+                <div>
+                  <HeartIcon />
+                  <ShopIcon />
                 </div>
-              );
-            })
-          ) : (
-            <p>No events found.</p>
-          )}
-
-
+                <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+              </div>
+            );
+          })
+        ) : (
+          <p>No events published.</p>
+        )}
       </div>
     </div>
   );
