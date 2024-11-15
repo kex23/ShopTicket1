@@ -121,6 +121,9 @@
     .afficheLogin {
         width: 90%; /* Plus large pour petits écrans */
     }
+    .no-scroll {
+        overflow: auto; /* Permet le défilement */
+    }
 }
 
 /* Écrans moyens (600px - 1024px) */
