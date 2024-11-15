@@ -42,7 +42,9 @@ export default function CompteOrga() {
           setError('Unexpected data format.');
         }
       } catch (error) {
-        console.error('Failed to fetch events:', error.response ? error.response.data : error.message);
+        // Cast the error to AxiosError to access the response
+        const axiosError = error as AxiosError;
+        console.error('Failed to fetch events:', axiosError.response ? axiosError.response.data : axiosError.message);
         setError('Failed to fetch events.');
       }
     };
