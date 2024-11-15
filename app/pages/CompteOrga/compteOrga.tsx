@@ -36,7 +36,7 @@ export default function CompteOrga() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/events');
+        const { data } = await axios.get('./api/events');
         if (Array.isArray(data)) {
           setEvents(data); // TypeScript now knows this is an Event[]
         } else {
@@ -113,7 +113,7 @@ export default function CompteOrga() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/events', formData, {
+      const response = await axios.post('./api/events', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -273,7 +273,7 @@ export default function CompteOrga() {
                     )}
                   </p>
                   <div className="DivImage">
-                    {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+                    {event.image && <img className="imageEvenement" src={`./uploads/${event.image}`} alt={event.title} />}
                   </div>
                   <div className="reactions">
                     <HeartIcon className="heartIcon" />

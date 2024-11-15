@@ -24,7 +24,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/events');
+        const { data } = await axios.get('./api/events');
         if (Array.isArray(data)) {
           setEvents(data);  // Now TypeScript knows data is of type Event[]
         } else {
@@ -91,7 +91,7 @@ export default function HomePage() {
                     ))}
                   </p>
                   <div className="DivImage">
-                    {event.image && <img className='imageEvenement' src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+                    {event.image && <img className='imageEvenement' src={`./uploads/${event.image}`} alt={event.title} />}
                   </div>
                   <div className="reactions">
                     <HeartWithCounter />
