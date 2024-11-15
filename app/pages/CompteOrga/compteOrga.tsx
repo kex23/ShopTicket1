@@ -7,6 +7,8 @@ import TopnavOrga from '../../component/topnavOrga/topnavOrga';
 import './compteOrga.css';
 import HeartIcon from '@/app/icons/hear';
 import ShopIcon from '@/app/icons/shop';
+import { AxiosError } from 'axios';  // Import AxiosError
+
 
 interface Event {
   id: number;
