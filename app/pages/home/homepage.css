@@ -1,0 +1,95 @@
+.contenuePage {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Centrer les éléments horizontalement */
+    min-height: 100vh; /* Assurez-vous que la page occupe toute la hauteur de la fenêtre */
+}
+
+
+.afficheEVEnement{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.conte{
+    width: 100%;
+    margin-top: 5%;
+}
+
+.reactions{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+/* Petits écrans (moins de 600px) */
+@media (max-width: 599px) {
+
+    .afficheEVEnement {
+        flex-direction: column; /* Affiche les éléments en colonne */
+        align-items: center;
+        width: 100%;
+    }
+
+    .conte {
+        width: 100%;
+        margin-top: 20%; /* Ajuste l'espacement supérieur */
+    }
+
+    .evemt{
+        width: 100%;
+    }
+
+    .reactions {
+
+        justify-content: space-around;
+    }
+}
+
+/* Écrans moyens (600px - 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+
+
+    .afficheEVEnement {
+        justify-content: space-between; 
+        flex-direction: column; /* Affiche les éléments en colonne */
+        align-items: center;
+        width: 100%;/* Équilibre les éléments horizontalement */
+    }
+
+    .conte {
+        margin-top: 8%;
+    }
+
+    .reactions {
+        justify-content: center; /* Centrage des réactions */
+    }
+}
+
+/* Grands écrans (plus de 1024px) */
+@media (min-width: 1024px) {
+
+    .leftNavContent {
+        max-width: 1400px; /* Augmente la largeur maximale pour les grands écrans */
+        padding: 0 40px; /* Plus d'espace interne */
+    }
+
+    .afficheEVEnement {
+        justify-content: space-around; /* Distribution équilibrée */
+    }
+
+    .conte {
+        margin-top: 5%;
+    }
+
+    .reactions {
+        justify-content: space-between; /* Espacement équilibré pour les réactions */
+    }
+}

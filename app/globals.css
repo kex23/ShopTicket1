@@ -1,0 +1,14 @@
+body{
+  margin: 0;
+  padding: 0;
+  background-image: url('./../public/v1016-a-08.jpg');
+}
+
+:root {
+  --primary-color: #212930;
+  --secondary-color: #29A09C;
+  --opacity-color: rgba(41, 160, 156, 0.9);
+  --accent-color: #e74c3c;
+  --background-color: #dbdbdb;
+  --text-color: #FFFFFF;
+}

@@ -1,0 +1,28 @@
+.reaction-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .icon-container {
+    margin-right: 8px; /* Adjust spacing between icon and counter */
+  }
+  
+  .icon {
+    width: 24px; /* Adjust size of the icon */
+    height: 24px;
+  }
+  
+  .icon.solid {
+    color: red; /* Active state color */
+  }
+  
+  .icon.outline {
+    color: gray; /* Inactive state color */
+  }
+  
+  .counter {
+    font-size: 18px; /* Adjust size of the counter */
+    font-weight: 500; /* Adjust weight of the font */
+  }
+  

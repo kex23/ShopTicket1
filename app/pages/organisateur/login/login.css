@@ -1,0 +1,92 @@
+.contenueLogin {
+    width: 100%;
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1); /* Utiliser une couleur de fond semi-transparente */
+    backdrop-filter: blur(10px); /* Applique le flou */
+    padding: 20px; /* Ajout de padding pour un meilleur espacement */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optionnel : ajoute une ombre pour un meilleur contraste */
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.CloseWindows{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.TitreLogin{
+    width: 100%;
+}
+
+.Email{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.InputMail{
+    border: none;
+    border-bottom: 1px solid var(--secondary-color);
+    background-color: rgba(255, 255, 255, 0.1); /* Utiliser une couleur de fond semi-transparente */
+    backdrop-filter: blur(10px);
+}
+
+.Password{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.InputPassword{
+    border: none;
+    border-bottom: 1px solid var(--secondary-color);
+    background-color: rgba(255, 255, 255, 0.1); /* Utiliser une couleur de fond semi-transparente */
+    backdrop-filter: blur(10px);
+}
+
+.buttonValide{
+    width: 100%;
+    margin-top: 3%;
+}
+
+.BTNConnecter{
+    width: 40%;
+    border-radius: 15px;
+    border: none;
+    height: 4vh;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.BTNConnecter:hover{
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Liens creation compte */
+.phraseCreation{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liens{
+    color: var(--secondary-color);
+}
+
+.liens:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

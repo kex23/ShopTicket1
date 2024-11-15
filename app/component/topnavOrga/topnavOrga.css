@@ -1,0 +1,64 @@
+.logOut{
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.TextDeco{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logOut:hover{
+    cursor: pointer;
+}
+
+.rightChose{
+    
+    display: flex;
+    justify-content: space-around;
+}
+
+.profileSection {
+    width: 33%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+}
+
+.profileImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profileMenuIcon {
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.profileMenu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.profileMenu .TextDeco {
+    cursor: pointer;
+}
+
+.profileMenu .TextDeco:hover {
+    background-color: #f0f0f0;
+}

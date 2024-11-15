@@ -1,0 +1,160 @@
+.contenue {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.contenueOrga {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.buttonNavContainer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.acroche {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.image {
+    width: 50%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Image1 {
+    width: 60%;
+}
+
+.TextAccroch {
+    width: 60%;
+}
+
+.TitreAccroche {
+    font-size: 30px;
+    font-family: cursive;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.phrasedAccroche {
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--primary-color);
+}
+
+.btnConneter {
+    margin-top: 3%;
+}
+
+.connecter {
+    width: 30%;
+    border-radius: 15px;
+    border: none;
+    height: 4vh;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.connecter:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.ICoClose:hover {
+    cursor: pointer;
+    color: red;
+}
+
+/* login */
+.afficheLogin {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+/* Media Queries */
+
+/* Petits écrans (moins de 600px) */
+@media (max-width: 599px) {
+    .acroche{
+        flex-wrap: wrap;
+    }
+    .image{
+        width: 50%;
+    }
+
+    .TitreAccroche {
+        font-size: 24px; /* Réduit la taille du texte */
+    }
+
+    .phrasedAccroche {
+        font-size: 16px; /* Réduit légèrement la taille du texte */
+    }
+
+    .connecter {
+        width: 80%; /* Prend plus de largeur */
+        font-size: 16px;
+    }
+
+    .afficheLogin {
+        width: 90%; /* Plus large pour petits écrans */
+    }
+}
+
+/* Écrans moyens (600px - 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+
+    .acroche, .image, .TextAccroch {
+        width: 80%; /* Moins de largeur */
+    }
+
+    .TitreAccroche {
+        font-size: 28px; /* Ajuste la taille du texte */
+    }
+
+    .phrasedAccroche {
+        font-size: 17px;
+    }
+
+    .connecter {
+        width: 60%;
+        font-size: 17px;
+    }
+
+    .afficheLogin {
+        width: 70%;
+    }
+}
+
+/* Grands écrans (plus de 1024px) */
+@media (min-width: 1024px) {
+    .acroche {
+        flex-direction: row;
+    }
+
+    .afficheLogin {
+        width: 40%; /* Largeur définie pour grands écrans */
+    }
+}

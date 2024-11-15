@@ -1,0 +1,171 @@
+.contenuCompteOrga {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forme {
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    background-color: rgba(71, 71, 71, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-top: 3%;
+    z-index: 9999;
+}
+
+.deleteButton {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .deleteButton:hover {
+    color: darkred;
+  }
+  
+
+.titrepublier {
+    width: 100%;
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 28px;
+    font-family: cursive;
+}
+
+.titreevent, .dateEnvent, .EventType, .EventLocation, .EventPromotion, .Time {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.InputLocation, .InputPromotion, .InputEventType {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.submittedData {
+    width: 50%;
+    border: 1px solid var(--background-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.submittedImage {
+    width: 100%;
+}
+
+.infoOrga{
+    justify-content: start;
+    display: flex;
+    align-items: center;
+}
+
+.affichePhare, .EventImage, .DivImage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageEvenement{
+    width: 50%;
+}
+
+.event {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    border: 1px solid var(--background-color);
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    margin-top: 2%;
+}
+
+.titreEvenement {
+    width: 100%;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 25px;
+    color: var(--secondary-color);
+}
+
+.DateEvenement, .HeureEvenement, .LieuEvenement, .TyoeEvenement {
+    width: 100%;
+    margin: 0;
+}
+
+
+.reactions{
+    justify-content: space-around;
+}
+
+/* Media Queries */
+
+/* Petits écrans (moins de 600px) */
+@media (max-width: 599px) {
+    .forme, .submittedData, .event {
+        width: 90%; /* Prend presque toute la largeur */
+    }
+
+    .titrepublier {
+        font-size: 24px; /* Réduit la taille du texte */
+    }
+
+    .titreEvenement {
+        font-size: 20px; /* Réduit la taille du titre */
+    }
+
+    .InputLocation, .InputPromotion, .InputEventType {
+        padding: 6px; /* Réduit l'espacement */
+    }
+}
+
+/* Écrans moyens (600px - 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .forme, .submittedData, .event {
+        width: 70%; /* Prend une grande partie de l'espace */
+    }
+
+    .titrepublier {
+        font-size: 26px; /* Ajuste la taille du texte */
+    }
+
+    .titreEvenement {
+        font-size: 22px; /* Ajuste la taille du titre */
+    }
+}
+
+/* Grands écrans (plus de 1024px) */
+@media (min-width: 1024px) {
+    .forme, .submittedData, .event {
+        width: 50%; /* Garde une largeur optimale sur grands écrans */
+    }
+
+    .InputLocation, .InputPromotion, .InputEventType {
+        padding: 10px; /* Plus d'espacement pour les grands écrans */
+    }
+}

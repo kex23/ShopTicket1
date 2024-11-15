@@ -1,0 +1,12 @@
+.Users{
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ImageUpload{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
