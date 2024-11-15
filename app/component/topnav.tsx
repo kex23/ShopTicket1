@@ -16,21 +16,18 @@ export default function Topnav() {
         setIsOpen(!isOpen);
     };
 
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
 
-    const handleSearchSubmit = async (e) => {
+
+    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const response = await fetch(`/api/events?query=${encodeURIComponent(searchQuery)}`);
-            const data = await response.json();
-            console.log("Search results:", data);
-            // Update state or handle the results as needed
+            // Handle the response...
         } catch (error) {
-            console.error("Error searching for events:", error);
+            console.error(error);
         }
     };
+    
     
 
     return (
@@ -62,8 +59,6 @@ export default function Topnav() {
                         <input
                             placeholder="recherchez un evenement"
                             className="inputrecherche"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
                         />
                         <button type="submit" className="button"><SearchIcons/></button>
                     </form>  
