@@ -69,15 +69,6 @@ export default function CompteOrga() {
     }
   };
 
-  const handleDeleteEvent = async (eventId: number) => {
-    try {
-      const response = await axios.delete(`http://localhost:3000/api/events/${eventId}`);
-      setEvents(events.filter((event) => event.id !== eventId)); // Remove event from state
-    } catch (error) {
-      console.error('Failed to delete event:', error.response ? error.response.data : error.message);
-      setError('Failed to delete event.');
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
