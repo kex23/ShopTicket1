@@ -4,20 +4,22 @@ import CloseIcons from "@/app/icons/x";
 import EmailIcons from "@/app/icons/email";
 import LockIcons from "@/app/icons/lock";
 import "./login.css";
+interface LoginProps {
+    onClose: () => void;  // Assuming onClose is a function with no arguments and no return value
+    onSwitch: () => void; // Assuming onSwitch is a function with no arguments and no return value
+  }
 
-export default function Login({ onClose, onSwitch }) {
+export default function Login({ onClose, onSwitch }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Use useNavigate instead of useRouter
+    const navigate = useNavigate();; // Use useNavigate instead of useRouter
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (email === 'rabenjatovokex@gmail.com' && password === '123') {
-            navigate('/compteOrga'); // Use navigate instead of router.push
-        } else {
-            alert('Invalid email or password');
+          navigate('/compteOrga'); // Use navigate instead of router.push
         }
-    };
+      };
 
     return (
         <div className="contenueLogin">

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Topnav from "../../component/topnav";
 import "./organisateur.css";
 import Login from "./login/login";
-import Register from "./register/register";
 import ButtonNav from "../../component/bottonnav/bottonnav";
 
 export default function Organisateur() {
@@ -61,7 +60,6 @@ export default function Organisateur() {
                 {(showLogin || showRegister) && (
                     <div className="afficheLogin">
                         {showLogin && <Login onClose={handleCloseClick} onSwitch={handleRegisterClick} />}
-                        {showRegister && <Register onClose={handleCloseClick} onSwitch={handleConnectClick} />}
                     </div>
                 )}
             </div>

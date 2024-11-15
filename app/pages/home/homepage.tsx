@@ -6,23 +6,33 @@ import "./homepage.css";
 import ShopIcon from '@/app/icons/shop';
 import HeartWithCounter from '@/app/component/reaction/reaction';
 
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  type: string;
+  location: string;
+  promotion: string;
+  image?: string;
+}
+
 export default function HomePage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Event[]>([]); 
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const { data } = await axios.get('http://localhost:3000/api/events');
-        console.log(data);
         if (Array.isArray(data)) {
-          setEvents(data);
+          setEvents(data);  // Now TypeScript knows data is of type Event[]
         } else {
           console.error('Unexpected data format:', data);
           setError('Unexpected data format.');
         }
       } catch (error) {
-        console.error('Failed to fetch events:', error.response ? error.response.data : error.message);
+        console.error('Failed to fetch events:', error);
         setError('Failed to fetch events.');
       }
     };
@@ -31,20 +41,22 @@ export default function HomePage() {
   }, []);
 
   // Function to format the date
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
       return 'Invalid Date'; // Return an invalid date message if the date is not valid
     }
-    return date.toLocaleDateString(); // Format the date in default locale format (can adjust for dd/mm/yyyy if needed)
+    return date.toLocaleDateString(); // or any other format you prefer
   };
+  
 
   // Function to format the time in hh:mm
-  const formatTime = (timeString) => {
+  const formatTime = (timeString: string): string => {
     const time = new Date(`1970-01-01T${timeString}Z`); // Make it a valid time object
     if (isNaN(time.getTime())) return 'Invalid Time'; // If the time is invalid, return 'Invalid Time'
     return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
+  
 
   return (
     <div className="contenuePage">
@@ -82,8 +94,8 @@ export default function HomePage() {
                     {event.image && <img className='imageEvenement' src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
                   </div>
                   <div className="reactions">
-                    <HeartWithCounter className="heartIcon" />
-                    <a href="https://www.facebook.com/messages/t/100094028230383" target="_blank" rel="noopener noreferrer" className="shoppingIcon">
+                    <HeartWithCounter />
+                    <a href="https://www.facebook.com/messages/t/100005706048858" target="_blank" rel="noopener noreferrer" className="shoppingIcon">
                       <ShopIcon />
                     </a>
                   </div>

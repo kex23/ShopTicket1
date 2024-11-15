@@ -7,19 +7,19 @@ import TopnavOrga from '../../component/topnavOrga/topnavOrga';
 import './compteOrga.css';
 import HeartIcon from '@/app/icons/hear';
 import ShopIcon from '@/app/icons/shop';
-import { AxiosError } from 'axios';  // Import AxiosError
+import { AxiosError } from 'axios';
 
-
-interface Event {
+type Event = {
   id: number;
   title: string;
-  date: string;
-  time: string;
+  date: string;  // or Date if you're working with Date objects
+  time: string;  // or Date if you're working with Date objects
   type: string;
-  location: string;
-  promotion: string;
-  image?: string;
-}
+  location: string | null;
+  promotion: string | null;
+  image: string | null;
+};
+
 
 export default function CompteOrga() {
   const [showFormulaire, setShowFormulaire] = useState(false);
@@ -31,23 +31,27 @@ export default function CompteOrga() {
   const [eventPromotion, setEventPromotion] = useState('');
   const [eventImage, setEventImage] = useState<File | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const { data } = await axios.get('http://localhost:3000/api/events');
         if (Array.isArray(data)) {
-          setEvents(data);
+          setEvents(data); // TypeScript now knows this is an Event[]
         } else {
           console.error('Unexpected data format:', data);
           setError('Unexpected data format.');
         }
-      } catch (error) {
-        // Cast the error to AxiosError to access the response
-        const axiosError = error as AxiosError;
-        console.error('Failed to fetch events:', axiosError.response ? axiosError.response.data : axiosError.message);
-        setError('Failed to fetch events.');
+      }  catch (error) {
+        if (error instanceof AxiosError) {
+          // Now TypeScript knows error is an AxiosError
+          console.error('Failed to create event:', error.response ? error.response.data : error.message);
+        } else {
+          // For other types of errors
+          console.error('Failed to create event:', error);
+        }
+        setError('Failed to create event.');
       }
     };
 
@@ -68,9 +72,11 @@ export default function CompteOrga() {
       setEventImage(e.target.files[0]);
     }
   };
+  
+  
+  
 
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!eventTitle || !eventDate || !eventTime || !eventType || !eventLocation) {
@@ -85,11 +91,13 @@ export default function CompteOrga() {
       return;
     }
 
-    const [hour, minute] = timeParts;
-    if (isNaN(Number(hour)) || isNaN(Number(minute))) {
+    const [hour, minute] = timeParts.map((part) => Number(part));
+
+    if (isNaN(hour) || isNaN(minute)) {
       setError('Invalid time format.');
       return;
     }
+
 
     const formData = new FormData();
     formData.append('title', eventTitle);
@@ -127,10 +135,17 @@ export default function CompteOrga() {
         setError('Unexpected response format.');
       }
     } catch (error) {
-      console.error('Failed to create event:', error.response ? error.response.data : error.message);
+      if (error instanceof AxiosError) {
+        // Now TypeScript knows `error` is an `AxiosError`
+        console.error('Failed to create event:', error.response ? error.response.data : error.message);
+      } else {
+        // Handle other types of errors (e.g., a non-Axios error)
+        console.error('Failed to create event:', error);
+      }
       setError('Failed to create event.');
     }
-  };
+};
+
 
   return (
     <div className='contenue'>
@@ -200,12 +215,18 @@ export default function CompteOrga() {
               />
             </div>
             <div className="EventPromotion">
-              <textarea
+            <textarea
                 placeholder="Phrase pour inciter les gens à acheter (optionnel)"
                 value={eventPromotion}
                 onChange={(e) => setEventPromotion(e.target.value)}
                 className="InputPromotion"
               />
+              <div className="DisplayPromotion">
+                {/* Transform the text to include line breaks */}
+                {eventPromotion.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+            </div>
             </div>
             <div className="ImageUpload">
               <FontAwesomeIcon icon={faImage} />
@@ -222,29 +243,51 @@ export default function CompteOrga() {
           </form>
         )}
 
-        {events.length > 0 ? (
-          events.map((event, index) => {
-            const eventDate = new Date(event.date);
-            const eventTime = new Date(`${event.date}T${event.time}`);
-            const formattedTime = isNaN(eventTime.getTime()) ? 'Invalid Time' : eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            return (
-              <div className="event" key={index}>
-                <h2>{event.title}</h2>
-                <p>{event.location}</p>
-                <p>{eventType}</p>
-                <p>{eventDate.toLocaleDateString()} at {formattedTime}</p>
-                {event.image && <img src={event.image} alt="Event" />}
-                <div>
-                  <HeartIcon />
-                  <ShopIcon />
+          {Array.isArray(events) ? (
+            [...events].reverse().map((event, index) => {
+              const eventDate = new Date(event.date);
+              const eventTime = new Date(`${event.date}T${event.time}`);
+              const formattedTime = isNaN(eventTime.getTime()) ? 'Invalid Time' : eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+              return (
+                <div key={index} className="event">
+                  <div className="infoOrga">
+                    <img className="profileImage" src="./user.jpg" alt="Profile" />
+                    <p className="UserOrganisateur">KexEvent</p>
+                  </div>
+                  <h3 className="titreEvenement">{event.title}</h3>
+                  <p className="DateEvenement">Date: {eventDate.toLocaleDateString()}</p>
+                  <p className="HeureEvenement">Heure: {formattedTime}</p>
+                  <p className="TypeEvenement">Type: {event.type}</p>
+                  <p className="LieuEvenement">Lieu: {event.location || 'Non spécifié'}</p>
+                  <p className="PromotionEvenement">
+                    {event.promotion ? (
+                      event.promotion.split('\n').map((line, idx) => (
+                        <span key={idx}>
+                          {line}
+                          <br />
+                        </span>
+                      ))
+                    ) : (
+                      <span>Pas de promotion disponible</span> // You can show a fallback message if promotion is null
+                    )}
+                  </p>
+                  <div className="DivImage">
+                    {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+                  </div>
+                  <div className="reactions">
+                    <HeartIcon className="heartIcon" />
+                    <ShopIcon className="shoppingIcon" />
+                  </div>
+                  
                 </div>
-                <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
-              </div>
-            );
-          })
-        ) : (
-          <p>No events published.</p>
-        )}
+              );
+            })
+          ) : (
+            <p>No events found.</p>
+          )}
+
+
       </div>
     </div>
   );
