@@ -9,13 +9,12 @@
   }
   
   .icon {
-    width: 50px; /* Ajustez la taille comme nécessaire */
-    height: 50px;
+    width: 24px; /* Adjust size of the icon */
+    height: 24px;
   }
   
   .icon.solid {
     color: red; /* Active state color */
-    width: 100%;
   }
   
   .icon.outline {
@@ -23,7 +22,7 @@
   }
   
   .counter {
-    font-size: 20px; /* Adjust size of the counter */
+    font-size: 18px; /* Adjust size of the counter */
     font-weight: 500; /* Adjust weight of the font */
   }
   
