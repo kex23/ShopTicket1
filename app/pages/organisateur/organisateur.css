@@ -105,8 +105,11 @@
         width: 50%;
     }
 
+    .TitreAccroche{
+        font-size: 15px;
+    }
     
-    .TitreAccroche, .phrasedAccroche{
+    .phrasedAccroche{
         font-size: 12px;
     }
 
