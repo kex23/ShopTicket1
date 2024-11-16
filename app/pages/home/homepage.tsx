@@ -84,10 +84,10 @@ export default function HomePage() {
                     <img className='imageEvenement' src="/reko.jpg"  />
                   </div>
                   <div className="reactions">
-                  <a href="https://www.facebook.com/messages/t/100005706048858">
-                    <ShopIcon /> Acheter des billets?
-                  </a>
-
+                    <HeartWithCounter />
+                    <a href="https://www.facebook.com/messages/t/100005706048858" className="shoppingIcon">
+                      <ShopIcon /> Acheter des billets?
+                    </a>
 
                   </div>
                 </div>
