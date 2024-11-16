@@ -16,10 +16,11 @@ const Reaction = () => {
     <div className="reaction-container" onClick={handleClick}>
       <div className="icon-container">
         {isActive ? (
-          <HeartIconSolid className="icon solid" />
+          <HeartIconSolid width={50} height={50} className="icon solid" />
         ) : (
-          <HeartIconOutline className="icon outline" />
+          <HeartIconOutline width={50} height={50} className="icon outline" />
         )}
+
       </div>
       <span className="counter">{count}</span>
     </div>
