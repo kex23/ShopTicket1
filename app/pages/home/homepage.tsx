@@ -64,34 +64,24 @@ export default function HomePage() {
 
       <div className="conte">
         <div className="afficheEVEnement">
-          {Array.isArray(events) ? (
-            [...events].reverse().map((event, index) => {
-              // Use formatDate and formatTime to ensure proper formatting
-              const formattedDate = formatDate(event.date);
-              const formattedTime = formatTime(event.time);
-
-              return (
-                <div key={index} className="event">
+                <div  className="event">
                   <div className="infoOrga">
                     <img className="profileImage" src="./user.jpg" alt="Profile" />
                     <p className="UserOrganisateur">KexEvent</p>
                   </div>
-                  <h3 className='titreEvenement'>{event.title}</h3>
-                  <p className='DateEvenement'>Date: {formattedDate}</p>
-                  <p className='HeureEvenement'>Heure: {formattedTime}</p>
-                  <p className='TypeEvenement'>Type: {event.type}</p>
-                  <p className='LieuEvenement'>Lieu: {event.location || 'Non spécifié'}</p>
+                  <h3 className='titreEvenement'>REKO tour 2024</h3>
+                  <p className='DateEvenement'>Date: 29 Novembre 2024</p>
+                  <p className='HeureEvenement'>Heure: 20 : 00</p>
+                  <p className='TypeEvenement'>Type: Cabaret</p>
+                  <p className='LieuEvenement'>Lieu: MAJUNGA @Shams Hotel Majunga be</p>
                   <p className="PromotionEvenement">
-                    {/* Respect the line breaks in the event's promotion text */}
-                    {event.promotion.split('\n').map((line, idx) => (
-                      <span key={idx}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
+                  '##RES: 25 000AR <br />
+                  '##PAF: 15 000AR <br />
+                  <br />
+                  'contacte pour plus d information : 032 07 460 27',
                   </p>
                   <div className="DivImage">
-                    {event.image && <img className='imageEvenement' src={`./uploads/${event.image}`} alt={event.title} />}
+                    <img className='imageEvenement' src="/reko.jpg"  />
                   </div>
                   <div className="reactions">
                     <HeartWithCounter />
@@ -100,11 +90,7 @@ export default function HomePage() {
                     </a>
                   </div>
                 </div>
-              );
-            })
-          ) : (
-            <p>No events found.</p>
-          )}
+         
 
         </div>
       </div>
