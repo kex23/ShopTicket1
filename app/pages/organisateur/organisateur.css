@@ -105,12 +105,9 @@
         width: 50%;
     }
 
-    .TitreAccroche {
-        font-size: 24px; /* Réduit la taille du texte */
-    }
-
-    .phrasedAccroche {
-        font-size: 16px; /* Réduit légèrement la taille du texte */
+    
+    .TitreAccroche, .phrasedAccroche{
+        font-size: 12px;
     }
 
     .connecter {

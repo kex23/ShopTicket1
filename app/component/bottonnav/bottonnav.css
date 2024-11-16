@@ -30,16 +30,12 @@
         text-align: center;
     }
 
-    .logoBotton, .emailKex, .num { /* Chaque élément prend toute la largeur */
-        margin-bottom: 10px; /* Espace entre les sections */
-    }
-
     .IMAGELogo {
         width: 50%; /* Agrandit l'image pour les petits écrans */
     }
 
     .emailKex, .num, .prenom, .nom{
-        font-size: 60%;
+        font-size: 50%;
     }
 
 }
