@@ -85,7 +85,7 @@ export default function HomePage() {
                   </div>
                   <div className="reactions">
                     <HeartWithCounter />
-                    <a href="https://www.facebook.com/messages/t/100005706048858" className="shoppingIcon">
+                    <a href="https://m.me/100005706048858" className="shoppingIcon">
                       <ShopIcon /> Acheter des billets?
                     </a>
 
