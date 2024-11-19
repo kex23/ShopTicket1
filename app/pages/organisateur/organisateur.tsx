@@ -4,7 +4,14 @@ import "./organisateur.css";
 import Login from "./login/login";
 import ButtonNav from "../../component/bottonnav/bottonnav";
 
+
 export default function Organisateur() {
+    const ticket = {
+        eventName: "Concert de Jazz",
+        date: "2024-11-20",
+        validationUrl: "https://example.com/validate?ticketId=12345",
+      };
+
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
 

@@ -3,6 +3,7 @@ import React from "react";
 import "./contact.css";
 import ButtonNav from "../../component/bottonnav/bottonnav";
 
+
 export default function ContactPage(){
     return(
         <div className="contenue">
