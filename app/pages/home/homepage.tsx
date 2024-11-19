@@ -5,6 +5,7 @@ import "./homepage.css";
 
 import ShopIcon from '@/app/icons/shop';
 import HeartWithCounter from '@/app/component/reaction/reaction';
+import Reaction from '@/app/component/reaction/reaction';
 
 interface Event {
   id: number;
@@ -64,35 +65,45 @@ export default function HomePage() {
 
       <div className="conte">
         <div className="afficheEVEnement">
-                <div  className="event">
-                  <div className="infoOrga">
-                    <img className="profileImage" src="./Rekologo.jpg" alt="Profile" />
-                    <p className="UserOrganisateur">Reko Tour 2024</p>
-                  </div>
-                  <h3 className='titreEvenement'>REKO tour 2024</h3>
-                  <p className='DateEvenement'>Date: 29 Novembre 2024</p>
-                  <p className='HeureEvenement'>Heure: 20 : 00</p>
-                  <p className='TypeEvenement'>Type: Cabaret</p>
-                  <p className='LieuEvenement'>Lieu: MAJUNGA @Shams Hotel Majunga be</p>
-                  <p className="PromotionEvenement">
-                    <br />
-                    ##RES: 25 000AR <br />
-                    ##PAF: 15 000AR <br />
-                    <br />
-                    contacte pour plus d'information : 034 60 463 13
-                  </p>
-                  <div className="DivImage">
-                    <img className='imageEvenement' src="/reko.jpg"  />
-                  </div>
-                  <div className="reactions">
-                    <HeartWithCounter />
-                    <a href="https://m.me/1425480547681126" className="shoppingIcon">
-                      <ShopIcon /> Acheter des billets?
-                    </a>
+        {events
+          .filter((event) => event.title && event.date && event.time && event.type && event.location) // Filter only complete events
+          .map((event, index) => {
+            // Convert the date format from dd/mm/yyyy to yyyy-mm-dd for proper JavaScript parsing
+            const dateParts = event.date ? event.date.split('/') : [];
+            const formattedTime = formatTime(event.time);
+            const formattedDate = dateParts.length === 3 ? new Date(dateParts.reverse().join('-')).toLocaleDateString() : 'Invalid Date';
 
+            return (
+              <div key={index} className="event">
+                <div className="infoOrga">
+                  <img className="profileImage" src="./Rekologo.jpg" alt="Profile" />
+                  <p className="UserOrganisateur">REKO tours 2024</p>
+                </div>
+                <h3 className="titreEvenement">{event.title}</h3>
+                <p className="DateEvenement">Date: {formattedDate}</p>
+                <p className='HeureEvenement'>Heure: {formattedTime}</p>
+                <p className="TypeEvenement">Type: {event.type}</p>
+                <p className="LieuEvenement">Lieu: {event.location || 'Non spécifié'}</p>
+                <p className="PromotionEvenement">
+                  {event.promotion ? event.promotion.split('\n').map((line, idx) => (
+                    <span key={idx}>
+                      {line}
+                      <br />
+                    </span>
+                  )) : <p>No promotion specified.</p>}
+                </p>
+                <div className="DivImage">
+                  {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+                </div>
+                <div className="reactions">
+                    <HeartWithCounter/>
+                    <a href="https://m.me/1425480547681126" target="_blank" rel="noopener noreferrer" className="shoppingIcon">
+                      <ShopIcon />Acheter des billets?
+                    </a>
                   </div>
                 </div>
-         
+            );
+          })}
 
         </div>
       </div>

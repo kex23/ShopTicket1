@@ -7,19 +7,6 @@ import TopnavOrga from '../../component/topnavOrga/topnavOrga';
 import './compteOrga.css';
 import HeartIcon from '@/app/icons/hear';
 import ShopIcon from '@/app/icons/shop';
-import { AxiosError } from 'axios';
-
-type Event = {
-  id: number;
-  title: string;
-  date: string;  // or Date if you're working with Date objects
-  time: string;  // or Date if you're working with Date objects
-  type: string;
-  location: string | null;
-  promotion: string | null;
-  image: string | null;
-};
-
 
 export default function CompteOrga() {
   const [showFormulaire, setShowFormulaire] = useState(false);
@@ -29,29 +16,23 @@ export default function CompteOrga() {
   const [eventType, setEventType] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventPromotion, setEventPromotion] = useState('');
-  const [eventImage, setEventImage] = useState<File | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [eventImage, setEventImage] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const { data } = await axios.get('./api/events');
         if (Array.isArray(data)) {
-          setEvents(data); // TypeScript now knows this is an Event[]
+          setEvents(data);
         } else {
           console.error('Unexpected data format:', data);
           setError('Unexpected data format.');
         }
-      }  catch (error) {
-        if (error instanceof AxiosError) {
-          // Now TypeScript knows error is an AxiosError
-          console.error('Failed to create event:', error.response ? error.response.data : error.message);
-        } else {
-          // For other types of errors
-          console.error('Failed to create event:', error);
-        }
-        setError('Failed to create event.');
+      } catch (error) {
+        console.error('Failed to fetch events:', error.response ? error.response.data : error.message);
+        setError('Failed to fetch events.');
       }
     };
 
@@ -67,16 +48,11 @@ export default function CompteOrga() {
     setError('');
   }, []);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setEventImage(e.target.files[0]);
-    }
+  const handleImageChange = (e) => {
+    setEventImage(e.target.files[0]);
   };
-  
-  
-  
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!eventTitle || !eventDate || !eventTime || !eventType || !eventLocation) {
@@ -91,13 +67,11 @@ export default function CompteOrga() {
       return;
     }
 
-    const [hour, minute] = timeParts.map((part) => Number(part));
-
+    const [hour, minute] = timeParts;
     if (isNaN(hour) || isNaN(minute)) {
       setError('Invalid time format.');
       return;
     }
-
 
     const formData = new FormData();
     formData.append('title', eventTitle);
@@ -135,17 +109,10 @@ export default function CompteOrga() {
         setError('Unexpected response format.');
       }
     } catch (error) {
-      if (error instanceof AxiosError) {
-        // Now TypeScript knows `error` is an `AxiosError`
-        console.error('Failed to create event:', error.response ? error.response.data : error.message);
-      } else {
-        // Handle other types of errors (e.g., a non-Axios error)
-        console.error('Failed to create event:', error);
-      }
+      console.error('Failed to create event:', error.response ? error.response.data : error.message);
       setError('Failed to create event.');
     }
-};
-
+  };
 
   return (
     <div className='contenue'>
@@ -226,7 +193,7 @@ export default function CompteOrga() {
                 {eventPromotion.split('\n').map((line, index) => (
                   <p key={index}>{line}</p>
                 ))}
-            </div>
+              </div>
             </div>
             <div className="ImageUpload">
               <FontAwesomeIcon icon={faImage} />
@@ -243,52 +210,52 @@ export default function CompteOrga() {
           </form>
         )}
 
-          {Array.isArray(events) ? (
-            [...events].reverse().map((event, index) => {
-              const eventDate = new Date(event.date);
-              const eventTime = new Date(`${event.date}T${event.time}`);
-              const formattedTime = isNaN(eventTime.getTime()) ? 'Invalid Time' : eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      {events
+        .filter((event) => event.title && event.date && event.time && event.type && event.location) // Filter only complete events
+        .map((event, index) => {
+          // Convert the date format from dd/mm/yyyy to yyyy-mm-dd for proper JavaScript parsing
+          const dateParts = event.date ? event.date.split('/') : [];
+          const formattedDate = dateParts.length === 3 ? new Date(dateParts.reverse().join('-')).toLocaleDateString() : 'Invalid Date';
+          const formattedTime = event.time ? new Date(`${event.date}T${event.time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Invalid Time';
 
-              return (
-                <div key={index} className="event">
-                  <div className="infoOrga">
-                    <img className="profileImage" src="./user.jpg" alt="Profile" />
-                    <p className="UserOrganisateur">KexEvent</p>
-                  </div>
-                  <h3 className="titreEvenement">{event.title}</h3>
-                  <p className="DateEvenement">Date: {eventDate.toLocaleDateString()}</p>
-                  <p className="HeureEvenement">Heure: {formattedTime}</p>
-                  <p className="TypeEvenement">Type: {event.type}</p>
-                  <p className="LieuEvenement">Lieu: {event.location || 'Non spécifié'}</p>
-                  <p className="PromotionEvenement">
-                    {event.promotion ? (
-                      event.promotion.split('\n').map((line, idx) => (
-                        <span key={idx}>
-                          {line}
-                          <br />
-                        </span>
-                      ))
-                    ) : (
-                      <span>Pas de promotion disponible</span> // You can show a fallback message if promotion is null
-                    )}
-                  </p>
-                  <div className="DivImage">
-                    {event.image && <img className="imageEvenement" src={`./uploads/${event.image}`} alt={event.title} />}
-                  </div>
-                  <div className="reactions">
-                    <HeartIcon className="heartIcon" />
-                    <ShopIcon className="shoppingIcon" />
-                  </div>
-                  
-                </div>
-              );
-            })
-          ) : (
-            <p>No events found.</p>
-          )}
+          return (
+            <div key={index} className="event">
+              <div className="infoOrga">
+                <img className="profileImage" src="./user.jpg" alt="Profile" />
+                <p className="UserOrganisateur">KexEvent</p>
+              </div>
+              <button className="deleteButton" onClick={() => handleDeleteEvent(event.id)}>
+                X
+              </button>
+              <h3 className="titreEvenement">{event.title}</h3>
+              <p className="DateEvenement">Date: {formattedDate}</p>
+              <p className="HeureEvenement">Heure: {formattedTime}</p>
+              <p className="TypeEvenement">Type: {event.type}</p>
+              <p className="LieuEvenement">Lieu: {event.location || 'Non spécifié'}</p>
+              <p className="PromotionEvenement">
+                {event.promotion ? event.promotion.split('\n').map((line, idx) => (
+                  <span key={idx}>
+                    {line}
+                    <br />
+                  </span>
+                )) : <p>No promotion specified.</p>}
+              </p>
+              <div className="DivImage">
+                {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+              </div>
+              <div className="reactions">
+                <HeartIcon className="heartIcon" />
+                <ShopIcon className="shoppingIcon" />
+              </div>
+            </div>
+          );
+        })}
 
 
-      </div>
+
     </div>
-  );
+  </div>
+);
 }
+
+    
