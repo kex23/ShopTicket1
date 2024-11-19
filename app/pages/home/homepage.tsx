@@ -93,7 +93,7 @@ export default function HomePage() {
                   )) : <p>No promotion specified.</p>}
                 </p>
                 <div className="DivImage">
-                  {event.image && <img className="imageEvenement" src={`http://localhost:3000/uploads/${event.image}`} alt={event.title} />}
+                  {event.image && <img className="imageEvenement" src={`./uploads/${event.image}`} alt={event.title} />}
                 </div>
                 <div className="reactions">
                     <HeartWithCounter/>

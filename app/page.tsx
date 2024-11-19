@@ -8,6 +8,7 @@ import './globals.css';
 import Organisateur from './pages/organisateur/organisateur';
 import CompteOrga from './pages/CompteOrga/compteOrga';
 import Notification from './pages/CompteOrga/notification/notification';
+import TicketGenerator from './pages/CompteOrga/TicketsGenerator/ticketGenerator';
 
 const DynamicBrowserRouter = dynamic(
   () => import('react-router-dom').then(mod => mod.BrowserRouter),
@@ -23,6 +24,8 @@ const Page: React.FC = () => {
         <Route path="/organisateur" element={<Organisateur />} />
         <Route path="/compteOrga" element={<CompteOrga />} />
         <Route path='/notification' element={<Notification />} />
+        <Route path='/TicketGenerator' element={<TicketGenerator />} />
+
       </Routes>
     </DynamicBrowserRouter>
   );

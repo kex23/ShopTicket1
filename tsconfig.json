@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/src/RootLayout.js", "pages/api/events.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/src/RootLayout.js", "pages/api/events.js", "pages/api/generateTicket.js"],
   "exclude": ["node_modules"]
 }

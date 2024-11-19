@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "./topnavOrga.css";
 import HomeIcons from "../../icons/home"; // Ensure this path is correct
-import SearchIcons from "../../icons/search";
 import { Link } from "react-router-dom";
 import OrganisateurIcons from "../../icons/organisateur";
 import MenuIcons from "../../icons/menu";
 import CloseIcons from "../../icons/x";
-import NotificationIcon from "../../icons/notification";
 import LogOutIcon from "../../icons/logOut";
 import ProfileIcon from "../../icons/profile"; // Add this import for profile icon
+import TicketGenerator from "@/app/pages/CompteOrga/TicketsGenerator/ticketGenerator";
+import QRicons from "@/app/icons/qrcode";
+import QRCodeicons from "@/app/icons/qrcode";
 
 export default function TopnavOrga() {
     const [isOpen, setIsOpen] = useState(false);
@@ -50,9 +51,9 @@ export default function TopnavOrga() {
                                 </Link>
                             </li>
                             <li className="liListe">
-                                <Link to="/notification">
+                                <Link to="/TicketGenerator">
                                     <div className="liListe">
-                                        <NotificationIcon /> Notification
+                                        <QRCodeicons/> TicketGenerator
                                     </div>
                                 </Link>
                             </li>

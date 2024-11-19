@@ -17,6 +17,11 @@
     cursor: pointer;
 }
 
+Link{
+    text-decoration: none;
+    
+}
+
 .rightChose{
     
     display: flex;

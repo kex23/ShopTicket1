@@ -1,0 +1,88 @@
+.p-6{
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.GENERATOR{
+    width: 100%;
+    text-align: center;
+}
+
+.contenue1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mt-6{
+    border: 1px solid grey;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    justify-content: center;
+}
+
+.TouteTickets{
+    width: 100%;
+    text-align: center;
+}
+
+/* Assurez-vous que les tickets s'affichent en colonne */
+.tickeT {
+    width: 65%;
+    display: block; /* Chaque ticket est un bloc */
+    margin-bottom: 20px; /* Espacement entre chaque ticket */
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative; /* Nécessaire pour positionner le pseudo-élément */
+    overflow: hidden;
+  }
+  
+  .tickeT::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/reko.jpg'); /* Remplacez par le chemin de votre image */
+    background-size: cover; /* Adapte l'image pour couvrir toute la zone */ /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    filter: blur(2px); /* Ajoute l'effet de flou au fond */
+    z-index: -1; /* Place l'arrière-plan derrière le contenu */
+  }
+
+  .TitresTicket{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    color: var(--secondary-color);
+    font-family: 'Aptos black', sans-serif;
+    font-weight: bold;
+  }
+
+  .TextTicket{
+    color: var(--text-color);
+    font-size: 20px;
+    font-family: 'Aptos black', sans-serif;
+  }
+
+  .contenuTicket{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .mt-4 {
+    margin-top: 16px;
+  }
+  
+  .mt-6 {
+    margin-top: 24px;
+  }
+  
