@@ -146,7 +146,7 @@
 .DateEvenement, .HeureEvenement, .LieuEvenement, .TypeEvenement, .PromotionEvenement {
     width: 100%;
     margin: 0;
-    font-family: 'Aptos', sans-serif;
+    font-family: 'Aptos';
     color: white;
 }
 
