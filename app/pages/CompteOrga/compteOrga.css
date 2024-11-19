@@ -47,12 +47,19 @@
     font-family: cursive;
 }
 
-.titreevent, .dateEnvent, .EventType, .EventLocation, .EventPromotion, .Time {
+.titreevent{
+    font-family: 'Aptos';
+    font-weight: bold;
+}
+
+.dateEnvent, .EventType, .EventLocation, .EventPromotion, .Time {
     width: 100%;
     align-items: center;
     display: flex;
     justify-content: center;
+    font-family: 'Aptos', sans-serif;
     margin-top: 3%;
+    
 }
 
 .InputLocation, .InputPromotion, .InputEventType {
@@ -83,6 +90,13 @@
     align-items: center;
 }
 
+.UserOrganisateur{
+    color: white;
+    font-family: 'Aptos black', sans-serif;
+    font-weight: bold;
+}
+
+
 .affichePhare, .EventImage, .DivImage {
     width: 100%;
     display: flex;
@@ -102,20 +116,38 @@
     border: 1px solid var(--background-color);
     border-radius: 15px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-    margin-top: 2%;
+    position: relative; /* Nécessaire pour positionner le pseudo-élément */
+    overflow: hidden;
+}
+
+.event::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/reko.jpg'); /* Remplacez par le chemin de votre image */
+    background-size: cover; /* Adapte l'image pour couvrir toute la zone */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    filter: blur(5px); /* Ajoute l'effet de flou au fond */
+    z-index: -1; /* Place l'arrière-plan derrière le contenu */
 }
 
 .titreEvenement {
     width: 100%;
-    font-family: cursive;
+    font-family: 'Aptos black', sans-serif;
     font-weight: bold;
     font-size: 25px;
     color: var(--secondary-color);
 }
 
-.DateEvenement, .HeureEvenement, .LieuEvenement, .TyoeEvenement {
+.DateEvenement, .HeureEvenement, .LieuEvenement, .TypeEvenement, .PromotionEvenement {
     width: 100%;
     margin: 0;
+    font-family: 'Aptos', sans-serif;
+    color: white;
 }
 
 

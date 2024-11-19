@@ -12,3 +12,30 @@ body{
   --background-color: #dbdbdb;
   --text-color: #FFFFFF;
 }
+
+@font-face {
+  font-family: 'Aptos';
+  src: url('/fonts/Aptos.woff2') format('woff2'),
+       url('/fonts/Aptos.woff') format('woff'),
+       url('/fonts/Aptos.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aptos';
+  src: url('/fonts/Aptos-Bold.woff2') format('woff2'),
+       url('/fonts/Aptos-Bold.woff') format('woff'),
+       url('/fonts/Aptos-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aptos';
+  src: url('/fonts/Aptos-Italic.woff2') format('woff2'),
+       url('/fonts/Aptos-Italic.woff') format('woff'),
+       url('/fonts/Aptos-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}

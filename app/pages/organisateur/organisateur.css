@@ -42,18 +42,20 @@
 
 .TextAccroch {
     width: 60%;
+    font-family: 'aptosnarrow';
 }
 
 .TitreAccroche {
     font-size: 30px;
     font-family: cursive;
     font-weight: bold;
+    font-family: 'aptosnarrow';
     color: var(--secondary-color);
 }
 
 .phrasedAccroche {
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'aptosnarrow';
     color: var(--primary-color);
 }
 

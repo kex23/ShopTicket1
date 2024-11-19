@@ -17,6 +17,8 @@
     margin-top: 2%;
 }
 
+
+
 .conte{
     width: 100%;
     margin-top: 5%;
@@ -28,6 +30,18 @@
     justify-content: space-around;
     width: 100%;
     align-items: center;
+    background-color: var(--background-color);
+    height: 5vh;
+}
+
+.shoppingIcon{
+    text-decoration: none;
+    color: black;
+}
+
+.shoppingIcon:hover{
+    cursor: pointer;
+    color: var(--secondary-color);
 }
 
 /* Petits écrans (moins de 600px) */

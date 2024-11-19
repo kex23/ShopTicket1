@@ -66,8 +66,8 @@ export default function HomePage() {
         <div className="afficheEVEnement">
                 <div  className="event">
                   <div className="infoOrga">
-                    <img className="profileImage" src="./user.jpg" alt="Profile" />
-                    <p className="UserOrganisateur">KexEvent</p>
+                    <img className="profileImage" src="./Rekologo.jpg" alt="Profile" />
+                    <p className="UserOrganisateur">Reko Tour 2024</p>
                   </div>
                   <h3 className='titreEvenement'>REKO tour 2024</h3>
                   <p className='DateEvenement'>Date: 29 Novembre 2024</p>
@@ -75,10 +75,11 @@ export default function HomePage() {
                   <p className='TypeEvenement'>Type: Cabaret</p>
                   <p className='LieuEvenement'>Lieu: MAJUNGA @Shams Hotel Majunga be</p>
                   <p className="PromotionEvenement">
-                  '##RES: 25 000AR <br />
-                  '##PAF: 15 000AR <br />
-                  <br />
-                  'contacte pour plus d information : 032 07 460 27',
+                    <br />
+                    ##RES: 25 000AR <br />
+                    ##PAF: 15 000AR <br />
+                    <br />
+                    contacte pour plus d'information : 034 60 463 13
                   </p>
                   <div className="DivImage">
                     <img className='imageEvenement' src="/reko.jpg"  />
