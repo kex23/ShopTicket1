@@ -1,7 +1,8 @@
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
-import "./reaction.css"
+import "./reaction.css";
+import API_URL from "@/config";
 
 interface Reaction {
   eventId: string;
@@ -17,7 +18,7 @@ const Reaction = () => {
   useEffect(() => {
     const fetchReactionData = async () => {
       try {
-        const response = await fetch('/api/reactions');
+        const response = await fetch(`${API_URL}/reactions`);
         if (response.ok) {
           const data: Reaction[] = await response.json(); // Typage explicite de 'data' en tant que tableau de Reaction
           console.log('Fetched data:', data);

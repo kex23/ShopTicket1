@@ -11,7 +11,7 @@ export default function TicketGenerator() {
   // Fonction pour récupérer les tickets existants depuis le fichier CSV via l'API
   const loadTickets = async () => {
     try {
-      const response = await fetch('/api/getTickets');
+      const response = await fetch('/api/generateTicket');
       if (response.ok) {
         const data = await response.json();
         if (data.length === 0) {
