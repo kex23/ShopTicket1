@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 export default async function handler(req, res) {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
   const filePath = path.join(process.cwd(), 'public', 'reactions.csv');
 
   if (req.method === 'POST') {

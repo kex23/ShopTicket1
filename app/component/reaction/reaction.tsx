@@ -1,33 +1,33 @@
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
-import "./reaction.css";
-import API_URL from "@/config";
+import API_URL from '@/config'; // Assurez-vous d'importer la bonne URL de l'API
 
+// Définir l'interface Reaction
 interface Reaction {
   eventId: string;
   count: number;
 }
 
-
 const Reaction = () => {
   const [isActive, setIsActive] = useState(false);
   const [count, setCount] = useState(0);
 
-  // Charger les données à partir du serveur
+  // Charger les données à partir de l'API
   useEffect(() => {
     const fetchReactionData = async () => {
       try {
         const response = await fetch(`${API_URL}/reactions`);
         if (response.ok) {
-          const data: Reaction[] = await response.json(); // Typage explicite de 'data' en tant que tableau de Reaction
-          console.log('Fetched data:', data);
+          const data: Reaction[] = await response.json(); // Typage explicite de data
 
-          // Filtrer les données pour l'eventId '12345' et additionner les valeurs de count
-          const reactions = data.filter((reaction) => reaction.eventId === '12345');
+          // Filtrer pour l'eventId '12345' et calculer le total des réactions
+          const reactions = data.filter((reaction: Reaction) => reaction.eventId === '12345'); // Typage explicite de reaction
           const totalCount = reactions.reduce((total, reaction) => total + reaction.count, 0);
-
-          setCount(totalCount); // Mettre à jour le compteur total
+          
+          setCount(totalCount); // Mise à jour du compteur
+        } else {
+          console.error('Failed to fetch reaction data');
         }
       } catch (error) {
         console.error('Error fetching reaction data:', error);
@@ -35,8 +35,9 @@ const Reaction = () => {
     };
 
     fetchReactionData();
-  }, []);  // Ce useEffect se déclenche une seule fois lors du premier rendu
+  }, []); // Ce useEffect se déclenche une seule fois lors du premier rendu
 
+  // Gérer le clic pour changer l'état du cœur et mettre à jour le compteur
   const handleClick = async () => {
     const newIsActive = !isActive;
     setIsActive(newIsActive);
@@ -44,17 +45,15 @@ const Reaction = () => {
     const newCount = newIsActive ? count + 1 : count - 1;
     setCount(newCount);
 
-    const data = { eventId: '12345', count: newCount }; // Assurez-vous que l'eventId est correct
-
-    console.log('Sending data to API:', data); // Vérifiez les données envoyées
+    const data = { eventId: '12345', count: newCount };
 
     try {
-      const response = await fetch('/api/reactions', {
+      const response = await fetch(`${API_URL}/reactions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data), // Envoi des données sous forme de JSON
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -62,8 +61,7 @@ const Reaction = () => {
       }
 
       const result = await response.json();
-      console.log('Reaction saved:', result); // Vérification des données enregistrées
-
+      console.log('Reaction saved:', result);
     } catch (error) {
       console.error('Error saving reaction:', error);
     }
