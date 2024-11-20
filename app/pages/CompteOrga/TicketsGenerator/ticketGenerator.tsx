@@ -9,17 +9,36 @@ export default function TicketGenerator() {
   const [error, setError] = useState<string | null>(null);
 
   // Fonction pour récupérer les tickets existants depuis le fichier CSV via l'API
-  const loadTickets = () => {
-    const savedTickets = localStorage.getItem('tickets');
-    if (savedTickets) {
-      setTickets(JSON.parse(savedTickets)); // Charger les tickets depuis le localStorage
-    } else {
-      setTickets([]); // Aucune donnée trouvée
+  const loadTickets = async () => {
+    try {
+      const response = await fetch('/api/getTickets');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.length === 0) {
+          // Si le fichier CSV est vide, on supprime les tickets locaux
+          localStorage.removeItem('tickets');
+          setTickets([]);
+        } else {
+          setTickets(data);
+          localStorage.setItem('tickets', JSON.stringify(data));
+        }
+      } else {
+        throw new Error('Failed to load tickets from API');
+      }
+    } catch (error) {
+      console.error('Failed to load tickets:', error);
+  
+      // Récupérer les données du localStorage uniquement si l'API échoue
+      const savedTickets = localStorage.getItem('tickets');
+      if (savedTickets) {
+        setTickets(JSON.parse(savedTickets));
+      }
     }
   };
   
-  useEffect(() => {
-    loadTickets(); // Charger les tickets
+
+  useEffect(() => { // Supprime les tickets locaux
+    loadTickets(); // Charger les tickets depuis l'API
   }, []);
   
 
@@ -28,7 +47,7 @@ export default function TicketGenerator() {
     setError(null);
 
     try {
-      const response = await fetch('./api/generateTicket', {
+      const response = await fetch('/api/generateTicket', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -108,15 +127,11 @@ export default function TicketGenerator() {
                     <p className="TextTicket">ID: {ticket.ticketId}</p>
                     <p className="TextTicket">Cabaret a MAJUNGA BE @ Shams Hotel </p>
                     <p className="TextTicket">Le 29 Novembre 2024 a 20:00</p>
+
                   </div>
                   <div className="mt-4">
                     <h3 className="font-bold">QR Code</h3>
-                    {/* QR Code pointant vers le lien de vérification */}
-                    <img 
-                      src={`https://shop-ticket.vercel.app/TicketChecker?ticketId=${ticket.ticketId}&size=150x150`} 
-                      alt="QR Code" 
-                      className="mt-4" 
-                    />
+                    <img src={ticket.qrCode} alt="QR Code" className="mt-4" />
                   </div>
                 </div>
               </div>

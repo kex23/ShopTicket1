@@ -1,15 +1,9 @@
 import { createObjectCsvWriter } from 'csv-writer';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode';
-import fs from 'fs';
 
 // Chemin vers le fichier CSV
 const csvFilePath = './tickets.csv';
-
-// Vérifier si le fichier CSV existe
-const checkFileExists = (path) => {
-  return fs.existsSync(path);
-};
 
 // Initialisation du writer CSV
 const csvWriter = createObjectCsvWriter({
@@ -37,12 +31,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Vérification si le fichier CSV existe
-    if (!checkFileExists(csvFilePath)) {
-      // Si le fichier n'existe pas, créez-le avec l'en-tête
-      await csvWriter.writeRecords([]);
-    }
-
     // Générer un identifiant unique
     const ticketId = uuidv4();
 

@@ -9,7 +9,6 @@ import CloseIcons from "../../icons/x";
 import LogOutIcon from "../../icons/logOut";
 import ProfileIcon from "../../icons/profile"; // Add this import for profile icon
 import QrcodeIcons from "../../icons/qrcode";
-import TicketChecker from "@/app/pages/CompteOrga/TicketChecker/TicketChecker";
 
 export default function TopnavOrga() {
     const [isOpen, setIsOpen] = useState(false);
