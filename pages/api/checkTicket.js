@@ -1,72 +1,105 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma'; // Assurez-vous d'avoir Prisma configuré dans lib/prisma.js
+import { createObjectCsvWriter } from 'csv-writer';
+import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
+import QRCode from 'qrcode';
+
+// Chemin vers le fichier CSV
+const csvFilePath = './tickets.csv';
+
+// Fonction pour lire le contenu du CSV
+const readTicketsFromCsv = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(csvFilePath, 'utf8', (err, data) => {
+      if (err) return reject(err);
+      const rows = data.split('\n').slice(1).map(row => {
+        const [id, name, email, ticketType, qrCode, isChecked] = row.split(',');
+        return { id, name, email, ticketType, qrCode, isChecked: isChecked === 'true' };
+      });
+      resolve(rows);
+    });
+  });
+};
+
+// Fonction pour écrire dans le CSV
+const writeTicketsToCsv = async (tickets) => {
+  const csvWriter = createObjectCsvWriter({
+    path: csvFilePath,
+    header: [
+      { id: 'id', title: 'ID' },
+      { id: 'name', title: 'Name' },
+      { id: 'email', title: 'Email' },
+      { id: 'ticketType', title: 'Ticket Type' },
+      { id: 'qrCode', title: 'QR Code' },
+      { id: 'isChecked', title: 'Is Checked' },
+    ],
+    append: false, // Écrase le fichier CSV entier pour mettre à jour l'état
+  });
+
+  await csvWriter.writeRecords(tickets);
+};
 
 // Vérification du QR code
-export async function GET(request) {
-  const { qrCode, status } = new URL(request.url).searchParams; // Récupérer les paramètres de la query string
+export async function GET(req, res) {
+  const { qrCode, status } = req.query; // Récupérer les paramètres de la query string
 
   if (!qrCode) {
-    return NextResponse.json({ message: 'QR code is required' }, { status: 400 });
+    return res.status(400).json({ message: 'QR code is required' });
   }
 
   try {
-    // Vérification de l'existence du ticket
-    const ticket = await prisma.ticket.findUnique({
-      where: { qrCode },
-    });
+    const tickets = await readTicketsFromCsv();
+    const ticket = tickets.find(t => t.qrCode === qrCode);
 
     if (!ticket) {
-      return NextResponse.json({ message: 'Ticket not found' }, { status: 404 });
+      return res.status(404).json({ message: 'Ticket not found' });
     }
 
-    // Si la query string demande des tickets avec un statut spécifique
+    // Si un statut est spécifié dans la query string
     if (status) {
-      const tickets = await prisma.ticket.findMany({
-        where: {
-          isChecked: status === 'checked' ? true : status === 'unchecked' ? false : undefined,
-        },
-      });
-      return NextResponse.json(tickets);
+      const filteredTickets = tickets.filter(t => 
+        t.isChecked === (status === 'checked' ? true : false)
+      );
+      return res.json(filteredTickets);
     }
 
-    // Sinon, retourner le statut du ticket
-    return NextResponse.json({ isChecked: ticket.isChecked });
+    // Retourner l'état du ticket
+    return res.json({ isChecked: ticket.isChecked });
   } catch (error) {
-    return NextResponse.json({ message: 'Error fetching ticket' }, { status: 500 });
+    return res.status(500).json({ message: 'Error fetching ticket' });
   }
 }
 
 // Marquer le ticket comme vérifié
-export async function POST(request) {
-  const { qrCode } = await request.json();
+export async function POST(req, res) {
+  const { qrCode } = req.body;
 
   if (!qrCode) {
-    return NextResponse.json({ message: 'QR code is required' }, { status: 400 });
+    return res.status(400).json({ message: 'QR code is required' });
   }
 
   try {
-    // Vérification si le ticket existe
-    const ticket = await prisma.ticket.findUnique({
-      where: { qrCode },
-    });
+    const tickets = await readTicketsFromCsv();
+    const ticketIndex = tickets.findIndex(t => t.qrCode === qrCode);
 
-    if (!ticket) {
-      return NextResponse.json({ message: 'Ticket not found' }, { status: 404 });
+    if (ticketIndex === -1) {
+      return res.status(404).json({ message: 'Ticket not found' });
     }
+
+    const ticket = tickets[ticketIndex];
 
     // Vérifier si le ticket a déjà été vérifié
     if (ticket.isChecked) {
-      return NextResponse.json({ message: 'Ticket already checked' }, { status: 400 });
+      return res.status(400).json({ message: 'Ticket already checked' });
     }
 
     // Marquer le ticket comme vérifié
-    const updatedTicket = await prisma.ticket.update({
-      where: { qrCode },
-      data: { isChecked: true },
-    });
+    tickets[ticketIndex] = { ...ticket, isChecked: true };
 
-    return NextResponse.json({ message: 'Ticket marked as checked', ticket: updatedTicket });
+    // Écrire les tickets mis à jour dans le CSV
+    await writeTicketsToCsv(tickets);
+
+    return res.status(200).json({ message: 'Ticket marked as checked', ticket: tickets[ticketIndex] });
   } catch (error) {
-    return NextResponse.json({ message: 'Error updating ticket' }, { status: 500 });
+    return res.status(500).json({ message: 'Error updating ticket' });
   }
 }
