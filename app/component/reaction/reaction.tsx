@@ -1,7 +1,8 @@
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
-import API_URL from '@/config'; // Assurez-vous d'importer la bonne URL de l'API
+import API_URL from '@/config'; 
+import "./reaction.css"// Assurez-vous d'importer la bonne URL de l'API
 
 // Définir l'interface Reaction
 interface Reaction {
