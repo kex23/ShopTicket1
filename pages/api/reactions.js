@@ -9,14 +9,17 @@ export default async function handler(req, res) {
   const filePath = path.join(process.cwd(), 'public', 'reactions.csv');
 
   if (req.method === 'POST') {
-    console.log('Request Body:', req.body);  // Ajoutez cette ligne pour vérifier les données envoyées
+    console.log('Request Body:', req.body);  // Loguer le corps de la requête
+
     try {
       const { eventId, count } = req.body;
       if (!eventId || count === undefined) {
         return res.status(400).json({ error: 'Missing eventId or count' });
       }
 
-      console.log('File Path:', filePath);  // Vérifiez si le chemin est correct
+      console.log('File Path:', filePath);  // Vérifiez le chemin du fichier
+
+      // Lire le fichier CSV et mettre à jour le count
       const data = fs.readFileSync(filePath, 'utf-8').split('\n').filter(Boolean);
       let found = false;
       let updatedData = data.map((line) => {
