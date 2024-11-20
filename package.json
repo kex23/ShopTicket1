@@ -11,7 +11,9 @@
     "migrate": "prisma migrate dev"
   },
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@babel/runtime": "^7.26.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@heroicons/react": "^2.1.5",
     "@prisma/client": "^5.17.0",
@@ -31,6 +33,8 @@
     "qrcode.react": "^4.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-qr-reader": "^3.0.0-beta-1",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.24.1",
     "supabase": "^1.219.2",
     "uuid": "^11.0.3"
