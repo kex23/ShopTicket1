@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/node"
+      }
+    ],
+    "env": {
+      "NPM_CONFIG_USERCONFIG": ".npmrc"
+    },
+    "hooks": {
+      "build": "npm install react-qr-reader --force && npm run build"
+    }
+  }
+  
