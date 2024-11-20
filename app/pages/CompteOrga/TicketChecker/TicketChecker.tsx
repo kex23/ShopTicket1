@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import TopnavOrga from '@/app/component/topnavOrga/topnavOrga';
-import './ticketChecker.css';
 
 export default function TicketChecker() {
   const [qrCode, setQrCode] = useState('');
