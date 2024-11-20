@@ -79,6 +79,7 @@ async function handleGet(req, res) {
 }
 
 // Function to handle POST requests (creating a new event)
+// Function to handle POST requests (creating a new event)
 async function handlePost(req, res) {
   console.log('Handling POST request');
   const form = formidable({
@@ -131,14 +132,19 @@ async function handlePost(req, res) {
       // Append the new event to the CSV file
       await appendEventToCSV(event);
 
+      // Generate the eventId here (this is where the id is generated)
+      const eventId = uuidv4(); 
+
+      // Include eventId in the response
       console.log('POST Response:', event);
-      res.status(201).json(event);
+      res.status(201).json({ ...event, eventId }); // Including eventId in the response
     } catch (error) {
       console.error('Error creating event:', error);
       res.status(500).json({ error: 'Error creating event' });
     }
   });
 }
+
 
 // Default export for the handler
 export default async function handler(req, res) {

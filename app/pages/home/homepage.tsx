@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Topnav from '../../component/topnav';
 import "./homepage.css";
-
 import ShopIcon from '@/app/icons/shop';
-import HeartWithCounter from '@/app/component/reaction/reaction';
 import Reaction from '@/app/component/reaction/reaction';
 
 interface Event {
@@ -96,7 +94,7 @@ export default function HomePage() {
                   {event.image && <img className="imageEvenement" src={`./uploads/${event.image}`} alt={event.title} />}
                 </div>
                 <div className="reactions">
-                    <HeartWithCounter/>
+                    <Reaction />
                     <a href="https://m.me/1425480547681126" target="_blank" rel="noopener noreferrer" className="shoppingIcon">
                       <ShopIcon />Acheter des billets?
                     </a>
