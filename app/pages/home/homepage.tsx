@@ -20,6 +20,12 @@ export default function HomePage() {
   const [events, setEvents] = useState<Event[]>([]); 
   const [error, setError] = useState('');
 
+  const getBuyTicketsLink = (): string => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      ? 'https://m.me/1425480547681126'
+      : 'https://www.facebook.com/messages/t/1425480547681126/';
+  };
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -95,9 +101,15 @@ export default function HomePage() {
                 </div>
                 <div className="reactions">
                     <Reaction />
-                    <a href="https://m.me/1425480547681126" target="_blank" rel="noopener noreferrer" className="shoppingIcon">
-                      <ShopIcon />Acheter des billets?
-                    </a>
+                    <a
+                      href={getBuyTicketsLink()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shoppingIcon"
+                    >
+                    <ShopIcon />
+                    Acheter des billets?
+                  </a>
                   </div>
                 </div>
             );
