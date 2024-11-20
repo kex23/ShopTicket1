@@ -9,6 +9,7 @@ import Organisateur from './pages/organisateur/organisateur';
 import CompteOrga from './pages/CompteOrga/compteOrga';
 import Notification from './pages/CompteOrga/notification/notification';
 import TicketGenerator from './pages/CompteOrga/TicketsGenerator/ticketGenerator';
+import TicketChecker from './pages/CompteOrga/TicketChecker/TicketChecker';
 
 const DynamicBrowserRouter = dynamic(
   () => import('react-router-dom').then(mod => mod.BrowserRouter),
@@ -25,7 +26,7 @@ const Page: React.FC = () => {
         <Route path="/compteOrga" element={<CompteOrga />} />
         <Route path='/notification' element={<Notification />} />
         <Route path='/TicketGenerator' element={<TicketGenerator />} />
-
+        <Route path='/TicketChecker' element={<TicketChecker />} />
       </Routes>
     </DynamicBrowserRouter>
   );

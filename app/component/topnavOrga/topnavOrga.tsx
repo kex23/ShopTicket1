@@ -8,9 +8,8 @@ import MenuIcons from "../../icons/menu";
 import CloseIcons from "../../icons/x";
 import LogOutIcon from "../../icons/logOut";
 import ProfileIcon from "../../icons/profile"; // Add this import for profile icon
-import TicketGenerator from "@/app/pages/CompteOrga/TicketsGenerator/ticketGenerator";
-import QRicons from "@/app/icons/qrcode";
-import QRCodeicons from "@/app/icons/qrcode";
+import QrcodeIcons from "../../icons/qrcode";
+import TicketChecker from "@/app/pages/CompteOrga/TicketChecker/TicketChecker";
 
 export default function TopnavOrga() {
     const [isOpen, setIsOpen] = useState(false);
@@ -53,14 +52,14 @@ export default function TopnavOrga() {
                             <li className="liListe">
                                 <Link to="/TicketGenerator">
                                     <div className="liListe">
-                                        <QRCodeicons/> TicketGenerator
+                                        <QrcodeIcons/> TicketGenerator
                                     </div>
                                 </Link>
                             </li>
                             <li className="liListe">
-                                <Link to="/organisateur">
+                                <Link to="/TicketChecker">
                                     <div className="liListe">
-                                        <OrganisateurIcons /> Organisateur
+                                        <OrganisateurIcons /> TicketChecker
                                     </div>
                                 </Link>
                             </li>
