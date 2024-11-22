@@ -18,7 +18,7 @@ const Reaction = () => {
   useEffect(() => {
     const fetchReactionData = async () => {
       try {
-        const response = await fetch(`${API_URL}/reactions`);
+        const response = await fetch(`${API_URL}`);
         if (response.ok) {
           const data: Reaction[] = await response.json(); // Typage explicite de data
 
