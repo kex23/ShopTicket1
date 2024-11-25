@@ -9,6 +9,19 @@ datasource db {
 }
 
 
+model Reaction {
+  id        Int       @id @default(autoincrement())
+  eventId   String    // Foreign key to Event
+  count     Int
+  event     Event     @relation(fields: [eventId], references: [id]) // Define the relation to Event
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  @@index([eventId]) // Optional: Index for faster lookups by eventId
+}
+
+
 model Event {
   id        Int      @id @default(autoincrement())
   title     String
@@ -18,4 +31,5 @@ model Event {
   location  String?
   promotion String?
   image     String?
+  reactions Reaction[] // Define the relation to Reaction
 }
